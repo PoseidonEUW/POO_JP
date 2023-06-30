@@ -1,0 +1,22 @@
+{
+  "name": "passwordguesser",
+  "version": "1.0.0",
+  "description": "Password Guesser for POO Class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PoseidonEUW/POO_JP.git"
+  },
+  "author": "Jessy Provenzal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PoseidonEUW/POO_JP/issues"
+  },
+  "homepage": "https://github.com/PoseidonEUW/POO_JP#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
+  }
+}

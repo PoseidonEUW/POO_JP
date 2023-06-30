@@ -1,22 +1,67 @@
+from Options.date import Date
+from Options.word import Word
 from passwordGuesser import PasswordGuesser
+from info import Info
+from verify import Verify
 
-# Create an instance of the PasswordGuesser class
-guesser = PasswordGuesser(words=['password', 'secret'], dates=['01011980', '12311999'], options={
-    'lowercase': True,
-    'uppercase': True,
-    'use_numbers': True,
-    'use_special_chars': True,
-    'special_chars': '!@#$%^&*()_+-=[]{}|;:,.<>?'
-})
+from flask import Flask, request, jsonify, render_template
+import datetime
 
-# Set some additional options
-guesser.set_max_special_chars(2)
-guesser.set_language('en')
+app = Flask(__name__, template_folder='templates',static_folder='static')
 
-# Generate a list of passwords and print them
-passwords = guesser.generate_passwords()
-print(passwords)
+@app.route('/', methods=['GET'])
+def show_form():
+   return render_template('index.html')
 
-# Generate a JSON string of passwords and print it
-json_passwords = guesser.generate_passwords_json()
-print(json_passwords)
+@app.route('/results', methods=['POST'])
+def handle_form_submission():
+   data = request.get_json()
+
+   # Retrieve the form values from the data
+   name = data['name']
+   currentDate = data['currentDate']
+   # If currentDate is empty, set it to today's date
+   if currentDate == '':
+      currentDate = datetime.date.today()
+      formatedCurrentDate = currentDate
+   # Format the date to YYYY-MM-DD
+   else:
+      formatedCurrentDate = datetime.datetime.strptime(currentDate, '%Y-%m-%d')
+   optionWord = data['optionWord']
+   optionDate = data['optionDate']
+   optionSpecialChars = data['optionSpecialChars']
+
+   # Set up the required objects and parameters for password generation
+   optionWordObj = Date(
+      optionWord['allMin'],
+      optionWord['allMaj'],
+      optionWord['capital'],
+      optionWord['noAccent'],
+      optionWord['leet']
+   )
+   optionDateObj = Word(
+      optionDate['dateNumbers'],
+      optionDate['humanMonth'],
+      optionDate['twoDigitYear'],
+      optionDate['fourDigitYear'],
+      optionDate['language']
+   )
+   personalInfo = Info([name], [formatedCurrentDate])
+   verify = Verify(personalInfo, optionWordObj, optionDateObj)
+
+   passwordGenerator = PasswordGuesser(verify)
+
+   # Generate the password based on the form options
+   passwords = passwordGenerator.all_combinations
+   # Return the response as JSON
+   response = {'password': passwords}
+   return jsonify(response)
+
+def main():
+   print("Welcome to Password Checker")
+   handle_form_submission()
+
+# Using the special variable __name__
+if __name__ == "__main__":
+    main()
+    app.run()

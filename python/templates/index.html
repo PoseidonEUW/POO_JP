@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/output.css') }}">
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  <title>Password Guesser</title>
+</head>
+
+<body class="bg-gray-700">
+  <nav class="bg-gray-300 p-4 text-2xl border-b-2 border-black">
+    <h1>Welcome to Password Guesser</h1>
+  </nav>
+
+  <div class="section min-h-screen mt-10">
+    <form action="" id="password-form" class="container mx-auto max-w-md bg-gray-500 rounded-lg p-4 border-2 border-black">
+      <!-- Name last name -->
+      <div class="mb-4">
+        <label for="name" class="font-bold mb-2">Name</label>
+        <input type="text" name="name" id="name" class="bg-gray-300 border border-gray-700 rounded w-full py-2 px-3 focus:outline-none focus:border-gray-500">
+      </div>
+
+      <!-- Date input -->
+      <div class="mt-4">
+        <label for="currentDate" class="block font-bold mb-2">Date</label>
+        <input type="date" name="currentDate" id="currentDate" class="bg-gray-300 border border-gray-700 rounded w-full py-2 px-3 focus:outline-none focus:border-gray-500">
+      </div>
+
+      <!-- Option words -->
+      <div class="mb-4 p-2">
+        <p class="font-bold mb-2">Options pour les mots</p>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="allMin">
+          <span class="ml-2">Basculer toutes les lettres en minuscule</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="allMaj">
+          <span class="ml-2">Basculer toutes les lettres en majuscule</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="capital">
+          <span class="ml-2">Basculer la première lettre en majuscule</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="noAccent">
+          <span class="ml-2">Retirer les accents</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="leet">
+          <span class="ml-2">Utiliser le L33T (trouver toutes les combinaisons possibles)</span>
+        </label>
+      </div>
+
+      <!-- Option dates -->
+      <div class="mb-4 p-2">
+        <p class="font-bold mb-2">Options pour les dates</p>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="dateNumbers">
+          <span class="ml-2">Utiliser les nombres des dates</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="humanMonth">
+          <span class="ml-2">Transformer les dates en langage humain pour les mois</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="twoDigitYear">
+          <span class="ml-2">Utiliser l'année sur 2 chiffres</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="fourDigitYear">
+          <span class="ml-2">Utiliser l'année sur 4 chiffres</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="language">
+          <span class="ml-2">Ajouter la possibilité de choisir la langue utilisée pour récupérer les noms des jours / mois</span>
+        </label>
+      </div>
+
+      <!-- Option special characters -->
+      <div class="mb-4 p-2">
+        <p class="font-bold mb-2">Options caractères spéciaux</p>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="commonSpecialChars">
+          <span class="ml-2">Ajouter les caractères spéciaux les plus communs (.$?!*)</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" name="allSpecialChars">
+          <span class="ml-2">Ajouter tous les caractères spéciaux</span>
+        </label>
+        <label for="maxSpecialChars" class="block font-bold mb-2 mt-4">Nombre de caractères spéciaux maximums dans la combinaison ?</label>
+        <input type="number" name="maxSpecialChars" id="maxSpecialChars" class="bg-gray-300 border border-gray-700 rounded w-full py-2 px-3 focus:outline-none focus:border-gray-500">
+      </div>
+
+      <!-- Submit button -->
+      <div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+      </div>
+    </form>
+
+    <!-- Results -->
+    <div class="container mx-auto max-w-md mt-8 p-4 bg-gray-500 rounded-lg border-2 border-black">
+      <h2 class="text-lg font-bold mb-4">Results</h2>
+      <p>Here you can display the results of the test.</p>
+      <div id="results" class="overflow-auto h-32"></div>
+    </div>
+  </div>
+
+</body>
+
+</html>
